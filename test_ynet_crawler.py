@@ -10,6 +10,8 @@ class YnetCrawlerTests(unittest.TestCase):
           <body>
             <a href="/news/article/abc123">First article</a>
             <a href="https://www.ynet.co.il/news/article/abc123#comments">Duplicate</a>
+            <a href="/article/rkskixybt">צור קשר</a>
+            <a href="/home/0,7340,L-201,00.html">Not an article</a>
             <a href="javascript:void(0)">Ignored</a>
             <a href="https://example.com/news/article/not-ynet">Ignored external</a>
             <a href="/articles/0,7340,L-123456,00.html">Legacy article</a>

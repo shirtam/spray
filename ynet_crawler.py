@@ -30,7 +30,13 @@ DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (compatible; ynet-crawler/1.0; "
     "+https://github.com/shirtam/spray)"
 )
-ARTICLE_PATH_RE = re.compile(r"/(?:article|articles)/|,7340,L-\d+", re.IGNORECASE)
+ARTICLE_PATH_RE = re.compile(r"(?:^|/)(?:article|articles)/", re.IGNORECASE)
+SKIP_LINK_TEXTS = {
+    "צור קשר",
+    "מדיניות פרטיות",
+    "תנאי שימוש",
+    "מפת האתר",
+}
 
 
 @dataclass(frozen=True)
@@ -190,7 +196,7 @@ def extract_article_links(html: str, base_url: str) -> list[tuple[str, str]]:
     links: list[tuple[str, str]] = []
     for href, text in parser.links:
         url = normalize_url(href, base_url)
-        if not url or not is_article_url(url) or url in seen:
+        if not url or not is_article_url(url) or text in SKIP_LINK_TEXTS or url in seen:
             continue
         seen.add(url)
         links.append((url, text))
